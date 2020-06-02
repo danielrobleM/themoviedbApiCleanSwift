@@ -11,6 +11,7 @@ import UIKit
 
 protocol ListMoviesPresentationLogic {
   func presentFetchedMovies(response: ListMovies.FetchMovies.Response)
+  func presentFetchError(response: ListMovies.Error.Response)
 }
 
 class ListMoviesPresenter: ListMoviesPresentationLogic {
@@ -24,5 +25,10 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 
     let viewModel = ListMovies.FetchMovies.ViewModel(displayedMovies: displayedMovies)
     viewController?.displayFetchedMovies(viewModel: viewModel)
+  }
+
+  func presentFetchError(response: ListMovies.Error.Response) {
+    let viewModel = ListMovies.Error.ViewModel(errorMessage: "Something when wrong")
+    viewController?.displayError(viewModel: viewModel)
   }
 }

@@ -11,9 +11,9 @@ import Foundation
 class MoviesAPI: MoviesStoreProtocol {
 
   func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
-    let enpoint = "https://api.themoviedb.org/3/trending/movie/week?api_key=d5a8fc9d9687cb5cb23f9786fdcb80f5"
+    let endpoint = "https://api.themoviedb.org/3/trending/movie/week?api_key=d5a8fc9d9687cb5cb23f9786fdcb80f5"
 
-    guard let url = URL(string: enpoint) else {
+    guard let url = URL(string: endpoint) else {
       completionHandler(.failure(MoviesError.invalidURL))
       return
     }

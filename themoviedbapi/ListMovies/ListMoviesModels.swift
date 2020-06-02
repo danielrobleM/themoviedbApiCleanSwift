@@ -10,17 +10,25 @@ import UIKit
 
 enum ListMovies {
 
-  // MARK: UI
+  // MARK: Fetch Movies
   enum FetchMovies {
     struct Request {}
     struct Response {
-      var movies: [MovieModel]
+      let movies: [MovieModel]
     }
     struct ViewModel {
       struct displayedMovie {
         let title: String
       }
       var displayedMovies: [displayedMovie]
+    }
+  }
+  // MARK: Fetch Error
+  enum Error {
+    struct Request { }
+    struct Response { }
+    struct ViewModel {
+      let errorMessage: String
     }
   }
 }

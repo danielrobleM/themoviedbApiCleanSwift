@@ -10,6 +10,7 @@ import UIKit
 
 protocol ListMoviesDisplayLogic: class {
   func displayFetchedMovies(viewModel: ListMovies.FetchMovies.ViewModel)
+  func displayError(viewModel: ListMovies.Error.ViewModel)
 }
 
 class ListMoviesViewController: UITableViewController, ListMoviesDisplayLogic {
@@ -59,6 +60,14 @@ class ListMoviesViewController: UITableViewController, ListMoviesDisplayLogic {
     }
   }
 
+  func displayError(viewModel: ListMovies.Error.ViewModel) {
+    DispatchQueue.main.async {
+      let alert = UIAlertController(title: nil, message:  viewModel.errorMessage, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "ok", style: .default))
+      self.present(alert, animated: true)
+    }
+  }
+
   // MARK: - Table view data source
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -76,6 +85,6 @@ class ListMoviesViewController: UITableViewController, ListMoviesDisplayLogic {
    }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+
   }
 }
