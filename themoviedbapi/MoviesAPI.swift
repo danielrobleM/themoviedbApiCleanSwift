@@ -10,7 +10,7 @@ import Foundation
 
 class MoviesAPI: MoviesStoreProtocol {
 
-  func fetchMovies(completionHandler: @escaping (Result<Bool, MoviesError>) -> Void) {
+  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
     let enpoint = "https://api.themoviedb.org/3/trending/movie/week?api_key=d5a8fc9d9687cb5cb23f9786fdcb80f5"
 
     guard let url = URL(string: enpoint) else {
@@ -32,10 +32,15 @@ class MoviesAPI: MoviesStoreProtocol {
       }
 
       do {
-           //let response = try  JSONDecoder().decode(movies.self, from: data)
-        completionHandler(.success(true))
+        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+          completionHandler(.failure(MoviesError.invalidResponse))
+          return
+        }
+
+        let response = try  JSONDecoder().decode(ListMovie.self, from: data)
+        completionHandler(.success(response.results))
        } catch let jsonError {
-           print(jsonError.localizedDescription)
+        print(jsonError.localizedDescription)
         completionHandler(.failure(MoviesError.invalidResponse))
        }
 

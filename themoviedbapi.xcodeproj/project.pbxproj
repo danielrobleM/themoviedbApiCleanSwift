@@ -22,6 +22,7 @@
 		65CBDF8A2486018B000BA6F5 /* ListMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CBDF842486018B000BA6F5 /* ListMoviesInteractor.swift */; };
 		65CBDF8C248604EB000BA6F5 /* MoviesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CBDF8B248604EB000BA6F5 /* MoviesAPI.swift */; };
 		65CBDF8E24860A69000BA6F5 /* MoviesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CBDF8D24860A69000BA6F5 /* MoviesError.swift */; };
+		65CBDF9024860AFF000BA6F5 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CBDF8F24860AFE000BA6F5 /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		65CBDF842486018B000BA6F5 /* ListMoviesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMoviesInteractor.swift; sourceTree = "<group>"; };
 		65CBDF8B248604EB000BA6F5 /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
 		65CBDF8D24860A69000BA6F5 /* MoviesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesError.swift; sourceTree = "<group>"; };
+		65CBDF8F24860AFE000BA6F5 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				6571D3CA24847C6200F16C77 /* Assets.xcassets */,
 				6571D3CC24847C6200F16C77 /* LaunchScreen.storyboard */,
 				6571D3CF24847C6200F16C77 /* Info.plist */,
+				65CBDF8F24860AFE000BA6F5 /* Movie.swift */,
 				65CBDF8B248604EB000BA6F5 /* MoviesAPI.swift */,
 				65CBDF8D24860A69000BA6F5 /* MoviesError.swift */,
 				65CBDF7E2486016E000BA6F5 /* ListMovies */,
@@ -247,6 +250,7 @@
 				65CBDF882486018B000BA6F5 /* ListMoviesModels.swift in Sources */,
 				65CBDF862486018B000BA6F5 /* ListMoviesWorker.swift in Sources */,
 				65CBDF892486018B000BA6F5 /* ListMoviesViewController.swift in Sources */,
+				65CBDF9024860AFF000BA6F5 /* Movie.swift in Sources */,
 				65CBDF872486018B000BA6F5 /* ListMoviesRouter.swift in Sources */,
 				65CBDF852486018B000BA6F5 /* ListMoviesPresenter.swift in Sources */,
 				65CBDF8A2486018B000BA6F5 /* ListMoviesInteractor.swift in Sources */,

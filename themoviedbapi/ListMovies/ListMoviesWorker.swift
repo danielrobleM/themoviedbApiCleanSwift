@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MoviesStoreProtocol {
-  func fetchMovies(completionHandler: @escaping (Result<Bool, MoviesError>) -> Void)
+  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void)
 }
 
 class MoviesWorker {
@@ -18,6 +18,7 @@ class MoviesWorker {
     self.moviesStore = moviesStore
   }
 
-  func fetchMovies(completionHandler: @escaping (Result<Bool, MoviesError>) -> Void)  {
+  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void)  {
+    moviesStore.fetchMovies(completionHandler: completionHandler)
   }
 }

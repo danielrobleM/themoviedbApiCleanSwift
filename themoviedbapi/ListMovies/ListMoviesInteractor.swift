@@ -24,5 +24,9 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
   func fetchUI(request: ListMovies.FetchMovies.Request) {
     worker = MoviesWorker(moviesStore: MoviesAPI())
     //worker?.doSomeWork()
+
+    worker?.fetchMovies(completionHandler: { [weak self] (response) in
+      print("fetchMovies from interactor")
+    })
   }
 }
