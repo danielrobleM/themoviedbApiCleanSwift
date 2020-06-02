@@ -1,5 +1,5 @@
 //
-//  MainModels.swift
+//  ListMoviesModels.swift
 //  themoviedbapi
 //
 //  Created by Daniel on 01-06-20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-enum Main {
+enum ListMovies {
 
   // MARK: UI
-  enum UI {
+  enum FetchMovies {
     struct Request {}
     struct Response {}
     struct ViewModel {}

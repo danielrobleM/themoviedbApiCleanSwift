@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  ListMoviesViewController.swift
 //  themoviedbapi
 //
 //  Created by Daniel on 01-06-20.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol MainDisplayLogic: class {
-  func displayUI(viewModel: Main.UI.ViewModel)
+protocol ListMoviesDisplayLogic: class {
+  func displayUI(viewModel: ListMovies.FetchMovies.ViewModel)
 }
 
-class MainViewController: UIViewController, MainDisplayLogic {
-  var interactor: MainBusinessLogic?
-  var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
+class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
+  var interactor: ListMoviesBusinessLogic?
+  var router: (NSObjectProtocol & ListMoviesRoutingLogic & ListMoviesDataPassing)?
 
   // MARK: Object lifecycle
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -30,9 +30,9 @@ class MainViewController: UIViewController, MainDisplayLogic {
   // MARK: Setup
   private func setup() {
     let viewController = self
-    let interactor = MainInteractor()
-    let presenter = MainPresenter()
-    let router = MainRouter()
+    let interactor = ListMoviesInteractor()
+    let presenter = ListMoviesPresenter()
+    let router = ListMoviesRouter()
     viewController.interactor = interactor
     viewController.router = router
     interactor.presenter = presenter
@@ -44,13 +44,13 @@ class MainViewController: UIViewController, MainDisplayLogic {
   // MARK: View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    let request = Main.UI.Request()
+    let request = ListMovies.FetchMovies.Request()
     interactor?.fetchUI(request: request)
     view.backgroundColor = .red
   }
 
-  // MARK: MainDisplayLogic
-  func displayUI(viewModel: Main.UI.ViewModel) {
+  // MARK: ListMoviesDisplayLogic
+  func displayUI(viewModel: ListMovies.FetchMovies.ViewModel) {
 
   }
 }
