@@ -45,7 +45,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
   override func viewDidLoad() {
     super.viewDidLoad()
     let request = ListMovies.FetchMovies.Request()
-    interactor?.fetchUI(request: request)
+    interactor?.fetchListMovies(request: request)
     view.backgroundColor = .red
   }
 

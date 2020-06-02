@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ListMoviesBusinessLogic {
-  func fetchUI(request: ListMovies.FetchMovies.Request)
+  func fetchListMovies(request: ListMovies.FetchMovies.Request)
 }
 
 protocol ListMoviesDataStore {
@@ -18,14 +18,11 @@ protocol ListMoviesDataStore {
 
 class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
   var presenter: ListMoviesPresentationLogic?
-  var worker: MoviesWorker?
+  var worker = MoviesWorker(moviesStore: MoviesAPI())
 
   // MARK:ListMoviesBusinessLogic
-  func fetchUI(request: ListMovies.FetchMovies.Request) {
-    worker = MoviesWorker(moviesStore: MoviesAPI())
-    //worker?.doSomeWork()
-
-    worker?.fetchMovies(completionHandler: { [weak self] (response) in
+  func fetchListMovies(request: ListMovies.FetchMovies.Request) {
+    worker.fetchMovies(completionHandler: { [weak self] (response) in
       print("fetchMovies from interactor")
     })
   }

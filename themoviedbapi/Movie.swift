@@ -9,6 +9,14 @@
 import Foundation
 
 struct MovieModel: Codable {
+  internal init(id: Int, title: String, releaseDate: String, overview: String, posterPath: String) {
+    self.id = id
+    self.title = title
+    self.releaseDate = releaseDate
+    self.overview = overview
+    self.posterPath = posterPath
+  }
+
   var id: Int
   var title: String
   var releaseDate: String

@@ -18,7 +18,7 @@ class MoviesAPI: MoviesStoreProtocol {
       return
     }
 
-    let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+    let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
       if let error = error {
         /// print error from request for more info. return ConnectionError.
         print(error.localizedDescription)
@@ -32,11 +32,6 @@ class MoviesAPI: MoviesStoreProtocol {
       }
 
       do {
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-          completionHandler(.failure(MoviesError.invalidResponse))
-          return
-        }
-
         let response = try  JSONDecoder().decode(ListMovie.self, from: data)
         completionHandler(.success(response.results))
        } catch let jsonError {

@@ -18,7 +18,7 @@ class MoviesWorker {
     self.moviesStore = moviesStore
   }
 
-  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void)  {
+  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
     moviesStore.fetchMovies(completionHandler: completionHandler)
   }
 }
