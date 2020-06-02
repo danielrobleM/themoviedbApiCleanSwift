@@ -23,7 +23,13 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
   // MARK:ListMoviesBusinessLogic
   func fetchListMovies(request: ListMovies.FetchMovies.Request) {
     worker.fetchMovies(completionHandler: { [weak self] (response) in
-      print("fetchMovies from interactor")
+      switch response {
+        case .success(let movies):
+          let response = ListMovies.FetchMovies.Response(movies: movies)
+          self?.presenter?.presentFetchedMovies(response: response)
+        case .failure(let error):
+        fatalError()
+      }
     })
   }
 }

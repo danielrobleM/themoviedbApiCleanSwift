@@ -49,7 +49,7 @@ class MoviesWorkerTests: XCTestCase {
       case .success(let movies):
         fetchedMovies = movies
         expect.fulfill()
-      case .failure(let error):
+      case .failure(_):
         fetchedMovies.removeAll()
         expect.fulfill()
       }

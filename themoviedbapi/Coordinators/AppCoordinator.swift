@@ -16,7 +16,7 @@ class AppCoordinator: Coordinator {
   }
 
   func start() {
-    let destinationController = ListMoviesViewController()
+    let destinationController = ListMoviesViewController(nibName: nil, bundle: nil)
     navigationController.pushViewController(destinationController, animated: false)
   }
 }

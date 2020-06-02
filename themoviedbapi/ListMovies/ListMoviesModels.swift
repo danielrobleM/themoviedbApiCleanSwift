@@ -13,7 +13,14 @@ enum ListMovies {
   // MARK: UI
   enum FetchMovies {
     struct Request {}
-    struct Response {}
-    struct ViewModel {}
+    struct Response {
+      var movies: [MovieModel]
+    }
+    struct ViewModel {
+      struct displayedMovie {
+        let title: String
+      }
+      var displayedMovies: [displayedMovie]
+    }
   }
 }

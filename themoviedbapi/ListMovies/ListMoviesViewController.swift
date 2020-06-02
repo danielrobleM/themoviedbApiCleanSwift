@@ -9,12 +9,13 @@
 import UIKit
 
 protocol ListMoviesDisplayLogic: class {
-  func displayUI(viewModel: ListMovies.FetchMovies.ViewModel)
+  func displayFetchedMovies(viewModel: ListMovies.FetchMovies.ViewModel)
 }
 
-class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
+class ListMoviesViewController: UITableViewController, ListMoviesDisplayLogic {
   var interactor: ListMoviesBusinessLogic?
   var router: (NSObjectProtocol & ListMoviesRoutingLogic & ListMoviesDataPassing)?
+  var displayedMovies: [ListMovies.FetchMovies.ViewModel.displayedMovie] = []
 
   // MARK: Object lifecycle
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -44,13 +45,37 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
   // MARK: View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.title = "Trending Movies"
+    self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "moviesID")
     let request = ListMovies.FetchMovies.Request()
     interactor?.fetchListMovies(request: request)
-    view.backgroundColor = .red
   }
 
   // MARK: ListMoviesDisplayLogic
-  func displayUI(viewModel: ListMovies.FetchMovies.ViewModel) {
+  func displayFetchedMovies(viewModel: ListMovies.FetchMovies.ViewModel) {
+    displayedMovies = viewModel.displayedMovies
+    DispatchQueue.main.async {
+      self.tableView.reloadData()
+    }
+  }
 
+  // MARK: - Table view data source
+  override func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return displayedMovies.count
+  }
+
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "moviesID", for: indexPath)
+    let movie = displayedMovies[indexPath.row]
+    cell.textLabel?.text = movie.title
+    return cell
+   }
+
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
   }
 }

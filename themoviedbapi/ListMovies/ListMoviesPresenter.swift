@@ -10,15 +10,19 @@
 import UIKit
 
 protocol ListMoviesPresentationLogic {
-  func presentUI(response: ListMovies.FetchMovies.Response)
+  func presentFetchedMovies(response: ListMovies.FetchMovies.Response)
 }
 
 class ListMoviesPresenter: ListMoviesPresentationLogic {
   weak var viewController: ListMoviesDisplayLogic?
 
   // MARK: ListMoviesPresentationLogic
-  func presentUI(response: ListMovies.FetchMovies.Response) {
-    let viewModel = ListMovies.FetchMovies.ViewModel()
-    viewController?.displayUI(viewModel: viewModel)
+  func presentFetchedMovies(response: ListMovies.FetchMovies.Response) {
+    let displayedMovies = response.movies.compactMap {
+      return ListMovies.FetchMovies.ViewModel.displayedMovie(title: $0.title)
+    }
+
+    let viewModel = ListMovies.FetchMovies.ViewModel(displayedMovies: displayedMovies)
+    viewController?.displayFetchedMovies(viewModel: viewModel)
   }
 }
