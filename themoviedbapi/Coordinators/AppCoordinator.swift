@@ -16,7 +16,7 @@ class AppCoordinator: Coordinator {
   }
 
   func start() {
-    let destinationController = ViewController()
+    let destinationController = MainViewController()
     navigationController.pushViewController(destinationController, animated: false)
   }
 }
