@@ -17,6 +17,15 @@ class AppCoordinator: Coordinator {
 
   func start() {
     let destinationController = ListMoviesViewController(nibName: nil, bundle: nil)
+
+    destinationController.didSelectMovie = { [weak self ] movie in
+      self?.presentMovieInformation(movie)
+    }
     navigationController.pushViewController(destinationController, animated: false)
+  }
+
+  func presentMovieInformation(_ movie: MovieModel) {
+    let destinationController = MovieViewController()
+    navigationController.pushViewController(destinationController, animated: true)
   }
 }

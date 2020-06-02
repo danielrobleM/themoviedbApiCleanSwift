@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol ListMoviesRoutingLogic {
-  func routeToSomewhere()
+  func routeToMovieVC(_ index: Int)
 }
 
 protocol ListMoviesDataPassing {
@@ -21,7 +21,8 @@ class ListMoviesRouter: NSObject, ListMoviesRoutingLogic, ListMoviesDataPassing 
   var dataStore: ListMoviesDataStore?
   
   // MARK: ListMoviesRoutingLogic
-  func routeToSomewhere() {
-
+  func routeToMovieVC(_ index: Int) {
+    guard let movie = dataStore?.movies?[index] else { return }
+    viewController?.didSelectMovie?(movie)
   }
 }

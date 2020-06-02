@@ -8,6 +8,9 @@
 
 import UIKit
 
+// MARK:- Typealiases
+typealias ListMoviesCompletionBlock = (MovieModel)-> Void
+
 protocol ListMoviesDisplayLogic: class {
   func displayFetchedMovies(viewModel: ListMovies.FetchMovies.ViewModel)
   func displayError(viewModel: ListMovies.Error.ViewModel)
@@ -17,6 +20,8 @@ class ListMoviesViewController: UITableViewController, ListMoviesDisplayLogic {
   var interactor: ListMoviesBusinessLogic?
   var router: (NSObjectProtocol & ListMoviesRoutingLogic & ListMoviesDataPassing)?
   var displayedMovies: [ListMovies.FetchMovies.ViewModel.displayedMovie] = []
+
+  var didSelectMovie: ListMoviesCompletionBlock?
 
   // MARK: Object lifecycle
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -85,6 +90,6 @@ class ListMoviesViewController: UITableViewController, ListMoviesDisplayLogic {
    }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+    router?.routeToMovieVC(indexPath.row)
   }
 }
