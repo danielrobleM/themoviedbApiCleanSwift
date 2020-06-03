@@ -17,10 +17,15 @@ struct MovieModel: Codable {
     self.posterPath = posterPath
   }
 
+  /// Identifier movie id
   var id: Int
+  /// Name of the movie
   var title: String
+  /// Relese date, formart mm/dd/yyy
   var releaseDate: String
+  /// A synopsis of the moview
   var overview: String
+  /// Poster Path, more info in https://developers.themoviedb.org/3/getting-started/images
   var posterPath: String
 
   private enum MovieModelKey: String, CodingKey {
@@ -42,7 +47,9 @@ struct MovieModel: Codable {
 }
 
 struct ListMovie: Codable {
+  // Number of result page
   var page: Int
+  // Array witn movie Model
   var results: [MovieModel]
 
   private enum ResponseMovieDBKey: String, CodingKey {

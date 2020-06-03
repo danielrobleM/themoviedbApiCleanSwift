@@ -9,6 +9,7 @@
 import Foundation
 
 struct ConfigModel: Codable {
+  /// First level of response
   var response: ImageModel
 
   private enum ConfigModelKey: String, CodingKey {
@@ -22,7 +23,9 @@ struct ConfigModel: Codable {
 }
 
 struct ImageModel: Codable {
+  /// Base url. See more in https://developers.themoviedb.org/3/getting-started/images
   let baseUrl: String
+  /// Array of String that contains multiples size like "w500", more info in https://developers.themoviedb.org/3/getting-started/images
   let posterSize: [String]
 
   private enum ImageModelKey: String, CodingKey {
