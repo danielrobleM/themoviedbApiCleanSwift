@@ -34,7 +34,7 @@ class ShowMovieInteractor: ShowMovieBusinessLogic, ShowMovieDataStore {
       presenter?.presentPoster(response: ShowMovie.GetPoster.Response(UIImage: downloadedImage!))
     }
 
-    worker.fetchPosterImage(urlString: buildPathUrl(movie.posterPath)) { [weak self] (response) in
+    worker.fetchPoster(urlString: buildPathUrl(movie.posterPath)) { [weak self] (response) in
       switch response{
         case .success(let posterImage):
           self?.presenter?.presentPoster(response: ShowMovie.GetPoster.Response(UIImage: posterImage))

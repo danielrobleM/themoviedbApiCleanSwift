@@ -13,29 +13,29 @@ class ListMoviesInteractorTest: XCTestCase {
   var sut: ListMoviesInteractor!
 
   override func setUpWithError() throws {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
     setupListMoviesInteractor()
   }
 
-  override func tearDownWithError() throws {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-  }
+  override func tearDownWithError() throws { }
 
   func setupListMoviesInteractor() {
     sut = ListMoviesInteractor()
   }
 
-  func testExample() throws {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-  }
+  class ListMoviesPresentationLogicSpy: ListMoviesPresentationLogic {
+     // MARK: Method call expectations
+     var presentFetchedMoviesCalled = false
+     var presentFetchedErrorCalled = false
 
-  func testPerformanceExample() throws {
-    // This is an example of a performance test case.
-    self.measure {
-      // Put the code you want to measure the time of here.
-    }
-  }
+     // MARK: Spied methods
+     func presentFetchedMovies(response: ListMovies.FetchMovies.Response) {
+       presentFetchedMoviesCalled = true
+     }
+
+     func presentFetchError(response: ListMovies.Error.Response) {
+       presentFetchedErrorCalled = true
+     }
+   }
 
   class MoviesWorkerSpy: MoviesWorker {
     // MARK: Method call expectations
@@ -43,19 +43,33 @@ class ListMoviesInteractorTest: XCTestCase {
 
     // MARK: Spied methods
     override func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MovieDbApiError>) -> Void) {
+      fetchListMoviesCalled = true
       completionHandler(.success([Seeds.Movies.BadBoysforLife, Seeds.Movies.SonictheHedgehog]))
     }
   }
 
-  func testFetchMovies() {
-    // Given
-
-    // When
-
-    // Then
+  class MoviesAPISucessSpy: MoviesStoreProtocol {
+    var fetchMoviesCalled = false
+    func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MovieDbApiError>) -> Void) {
+      fetchMoviesCalled = true
+      completionHandler(.success(ListMoviesWorker.testMovies))
+    }
   }
 
-  func testFetchMoviesMustReturnAListOfMovies() {
+  func testFetchMoviesShouldAskToMoviesWorkerAndPresent() {
+    // Given
+    let listMoviesPresentationLogicSpy = ListMoviesPresentationLogicSpy()
+    sut.presenter = listMoviesPresentationLogicSpy
 
+    let moviesWorkerSpy = MoviesWorkerSpy(moviesStore: MoviesAPISucessSpy())
+    sut.worker = moviesWorkerSpy
+
+    // When
+    let request = ListMovies.FetchMovies.Request()
+    sut.fetchListMovies(request: request)
+
+    // Then
+    XCTAssert(moviesWorkerSpy.fetchListMoviesCalled, "FetchMovies() should ask MoviesWorker to fetch Moviews")
+    XCTAssert(listMoviesPresentationLogicSpy.presentFetchedMoviesCalled, "FetchMovies() should ask presenter to format movies result")
   }
 }

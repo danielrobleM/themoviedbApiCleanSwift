@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieAPI: MovieStoreProtocol {
-  func fetchPosterImage(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void) {
+  func fetchPoster(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void) {
     guard let url = URL(string: urlString) else {
       completionHandler(.failure(MovieDbApiError.invalidURL))
       return

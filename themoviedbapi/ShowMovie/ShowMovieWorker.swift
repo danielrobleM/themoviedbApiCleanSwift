@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MovieStoreProtocol {
-  func fetchPosterImage(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void)
+  func fetchPoster(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void)
 }
 
 class ShowMovieWorker {
@@ -18,7 +18,7 @@ class ShowMovieWorker {
     self.movieStore = movieStore
   }
 
-  func fetchPosterImage(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void) {
-    movieStore.fetchPosterImage(urlString: urlString, completionHandler: completionHandler)
+  func fetchPoster(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void) {
+    movieStore.fetchPoster(urlString: urlString, completionHandler: completionHandler)
   }
 }
