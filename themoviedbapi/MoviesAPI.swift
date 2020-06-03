@@ -41,6 +41,5 @@ class MoviesAPI: MoviesStoreProtocol {
 
     }
     task.resume()
-
   }
 }

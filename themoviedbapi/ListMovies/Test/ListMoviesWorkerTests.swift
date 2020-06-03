@@ -9,7 +9,7 @@
 @testable import themoviedbapi
 import XCTest
 
-class MoviesWorkerTests: XCTestCase {
+class ListMoviesWorker: XCTestCase {
   var sut: MoviesWorker!
   static var testMovies: [MovieModel]!
 
@@ -23,14 +23,14 @@ class MoviesWorkerTests: XCTestCase {
 
   func setupMoviesWorker() {
     sut = MoviesWorker(moviesStore: MoviesAPISpy())
-    MoviesWorkerTests.testMovies = [Seeds.Movies.BadBoysforLife, Seeds.Movies.SonictheHedgehog]
+    ListMoviesWorker.testMovies = [Seeds.Movies.BadBoysforLife, Seeds.Movies.SonictheHedgehog]
   }
 
   class MoviesAPISpy: MoviesStoreProtocol {
     var fetchMoviesCalled = false
     func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
       fetchMoviesCalled = true
-      completionHandler(.success(MoviesWorkerTests.testMovies))
+      completionHandler(.success(ListMoviesWorker.testMovies))
     }
   }
 
@@ -57,8 +57,30 @@ class MoviesWorkerTests: XCTestCase {
     waitForExpectations(timeout: 1.1)
 
     // Then
-      XCTAssert(moviesStoresPy.fetchMoviesCalled, "Calling fetchMovies() should ask the data store for a list of movies")
-    XCTAssertEqual(fetchedMovies.count, MoviesWorkerTests.testMovies.count, "fetchMovies() should return a list of movies")
+    XCTAssert(moviesStoresPy.fetchMoviesCalled, "Calling fetchMovies() should ask the data store for a list of movies")
+    XCTAssertEqual(fetchedMovies.count, ListMoviesWorker.testMovies.count, "fetchMovies() should return a list of movies")
   }
 
+  func testFetchMoviesFromMoviesAPIShouldReturnSuccess() {
+    // Given
+    let movieAPI = MoviesAPI()
+    let expect = expectation(description: "Wait for fetched a array with movies")
+    var expectedResponse: [MovieModel]?
+    // When
+    movieAPI.fetchMovies { (response) in
+    switch response {
+      case .success(let movies):
+        expectedResponse = movies
+        expect.fulfill()
+      case .failure(_):
+        expect.fulfill()
+      }
+    }
+
+    waitForExpectations(timeout: 20, handler: nil)
+
+    // Then
+    XCTAssertNotNil(expectedResponse)
+
+  }
 }

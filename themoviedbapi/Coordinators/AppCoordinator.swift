@@ -25,7 +25,16 @@ class AppCoordinator: Coordinator {
   }
 
   func presentMovieInformation(_ movie: MovieModel) {
-    let destinationController = MovieViewController()
+    let destinationController = ShowMovieViewController()
+    var destinationDataStore = destinationController.router!.dataStore!
+    passDataToShowMovieDataStore(value: movie, destination: &destinationDataStore)
     navigationController.pushViewController(destinationController, animated: true)
+  }
+}
+
+extension AppCoordinator {
+
+  func passDataToShowMovieDataStore(value: MovieModel, destination: inout ShowMovieDataStore) {
+    destination.movie = value
   }
 }

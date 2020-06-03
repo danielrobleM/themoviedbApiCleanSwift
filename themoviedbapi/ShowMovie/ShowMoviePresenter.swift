@@ -1,0 +1,29 @@
+//
+//  ShowMoviePresenter.swift
+//  themoviedbapi
+//
+//  Created by Daniel on 02-06-20.
+//  Copyright (c) 2020 idorm. All rights reserved.
+//
+
+
+import UIKit
+
+protocol ShowMoviePresentationLogic {
+  func presentMovie(response: ShowMovie.GetMovie.Response)
+}
+
+class ShowMoviePresenter: ShowMoviePresentationLogic {
+  weak var viewController: ShowMovieDisplayLogic?
+
+  // MARK: ShowMoviePresentationLogic
+  func presentMovie(response: ShowMovie.GetMovie.Response) {
+    let viewModel = ShowMovie.GetMovie.ViewModel(
+      title: response.movie.title,
+      overview: response.movie.overview,
+      posterPath: response.movie.posterPath,
+      releaseDate: response.movie.releaseDate
+    )
+    viewController?.displayMovie(viewModel: viewModel)
+  }
+}
