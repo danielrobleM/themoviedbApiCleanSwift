@@ -8,17 +8,17 @@
 import UIKit
 
 protocol MoviesStoreProtocol {
-  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void)
+  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MovieDbApiError>) -> Void)
 }
 
 class MoviesWorker {
-  var moviesStore: MoviesStoreProtocol
+  var moviesStore: MoviesStoreProtocol!
 
   init(moviesStore: MoviesStoreProtocol) {
     self.moviesStore = moviesStore
   }
 
-  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
+  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MovieDbApiError>) -> Void) {
     moviesStore.fetchMovies(completionHandler: completionHandler)
   }
 }

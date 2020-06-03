@@ -60,16 +60,16 @@ class ListMoviesViewController: UITableViewController, ListMoviesDisplayLogic {
   // MARK: ListMoviesDisplayLogic
   func displayFetchedMovies(viewModel: ListMovies.FetchMovies.ViewModel) {
     displayedMovies = viewModel.displayedMovies
-    DispatchQueue.main.async {
-      self.tableView.reloadData()
+    DispatchQueue.main.async { [weak self ] in
+      self?.tableView.reloadData()
     }
   }
 
   func displayError(viewModel: ListMovies.Error.ViewModel) {
-    DispatchQueue.main.async {
+    DispatchQueue.main.async { [weak self ] in
       let alert = UIAlertController(title: nil, message:  viewModel.errorMessage, preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "ok", style: .default))
-      self.present(alert, animated: true)
+      self?.present(alert, animated: true)
     }
   }
 

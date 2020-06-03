@@ -7,4 +7,18 @@
 
 import UIKit
 
-class ShowMovieWorker { }
+protocol MovieStoreProtocol {
+  func fetchPosterImage(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void)
+}
+
+class ShowMovieWorker {
+  var movieStore: MovieStoreProtocol!
+
+  init(movieStore: MovieStoreProtocol) {
+    self.movieStore = movieStore
+  }
+
+  func fetchPosterImage(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void) {
+    movieStore.fetchPosterImage(urlString: urlString, completionHandler: completionHandler)
+  }
+}

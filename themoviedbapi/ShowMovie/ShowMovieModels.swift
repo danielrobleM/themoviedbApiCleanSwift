@@ -10,17 +10,27 @@ import UIKit
 
 enum ShowMovie {
 
-  // MARK: UI
+  // MARK: Get Movie
   enum GetMovie {
-    struct Request {}
+    struct Request { }
     struct Response {
       let movie: MovieModel
     }
     struct ViewModel {
       let title: String
       let overview: String
-      let posterPath: String
       let releaseDate: String
     }
   }
+
+  // MARK: Get Poster
+   enum GetPoster {
+     struct Request { }
+     struct Response {
+       let UIImage: UIImage
+     }
+     struct ViewModel {
+       let UIImage: UIImage
+     }
+   }
 }

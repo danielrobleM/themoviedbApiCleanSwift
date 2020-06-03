@@ -16,6 +16,16 @@ class AppCoordinator: Coordinator {
   }
 
   func start() {
+    setupApiConfiguration()
+    presentListMovies()
+  }
+
+  func setupApiConfiguration() {
+    ApiConfigurationService.setup(ApiConfiguration())
+    _ = ApiConfigurationService.sharedInstance
+  }
+
+  func presentListMovies() {
     let destinationController = ListMoviesViewController(nibName: nil, bundle: nil)
 
     destinationController.didSelectMovie = { [weak self ] movie in

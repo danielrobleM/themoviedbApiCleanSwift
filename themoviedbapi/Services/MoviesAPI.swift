@@ -10,11 +10,11 @@ import Foundation
 
 class MoviesAPI: MoviesStoreProtocol {
 
-  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
+  func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MovieDbApiError>) -> Void) {
     let endpoint = "https://api.themoviedb.org/3/trending/movie/week?api_key=d5a8fc9d9687cb5cb23f9786fdcb80f5"
 
     guard let url = URL(string: endpoint) else {
-      completionHandler(.failure(MoviesError.invalidURL))
+      completionHandler(.failure(MovieDbApiError.invalidURL))
       return
     }
 
@@ -22,12 +22,12 @@ class MoviesAPI: MoviesStoreProtocol {
       if let error = error {
         /// print error from request for more info. return ConnectionError.
         print(error.localizedDescription)
-        completionHandler(.failure(MoviesError.connectionError))
+        completionHandler(.failure(MovieDbApiError.connectionError))
         return
       }
 
       guard let data = data else {
-        completionHandler(.failure(MoviesError.connectionError))
+        completionHandler(.failure(MovieDbApiError.connectionError))
         return
       }
 
@@ -36,7 +36,7 @@ class MoviesAPI: MoviesStoreProtocol {
         completionHandler(.success(response.results))
        } catch let jsonError {
         print(jsonError.localizedDescription)
-        completionHandler(.failure(MoviesError.invalidResponse))
+        completionHandler(.failure(MovieDbApiError.invalidResponse))
        }
 
     }

@@ -8,13 +8,13 @@
 
 import Foundation
 
-enum MoviesError: Error {
+enum MovieDbApiError: Error {
   case invalidURL
   case connectionError
   case invalidResponse
 }
 
-extension MoviesError: LocalizedError {
+extension MovieDbApiError: LocalizedError {
   var errorDescription: String? {
     switch self {
     case .invalidURL:

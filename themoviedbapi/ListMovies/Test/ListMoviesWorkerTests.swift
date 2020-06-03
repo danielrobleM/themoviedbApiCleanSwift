@@ -28,7 +28,7 @@ class ListMoviesWorker: XCTestCase {
 
   class MoviesAPISpy: MoviesStoreProtocol {
     var fetchMoviesCalled = false
-    func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
+    func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MovieDbApiError>) -> Void) {
       fetchMoviesCalled = true
       completionHandler(.success(ListMoviesWorker.testMovies))
     }

@@ -42,7 +42,7 @@ class ListMoviesInteractorTest: XCTestCase {
     var fetchListMoviesCalled = false
 
     // MARK: Spied methods
-    override func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MoviesError>) -> Void) {
+    override func fetchMovies(completionHandler: @escaping (Result<[MovieModel], MovieDbApiError>) -> Void) {
       completionHandler(.success([Seeds.Movies.BadBoysforLife, Seeds.Movies.SonictheHedgehog]))
     }
   }

@@ -11,6 +11,7 @@ import UIKit
 
 protocol ShowMoviePresentationLogic {
   func presentMovie(response: ShowMovie.GetMovie.Response)
+  func presentPoster(response: ShowMovie.GetPoster.Response)
 }
 
 class ShowMoviePresenter: ShowMoviePresentationLogic {
@@ -21,9 +22,12 @@ class ShowMoviePresenter: ShowMoviePresentationLogic {
     let viewModel = ShowMovie.GetMovie.ViewModel(
       title: response.movie.title,
       overview: response.movie.overview,
-      posterPath: response.movie.posterPath,
       releaseDate: response.movie.releaseDate
     )
     viewController?.displayMovie(viewModel: viewModel)
+  }
+
+  func presentPoster(response: ShowMovie.GetPoster.Response) {
+    viewController?.displayPoster(viewModel: ShowMovie.GetPoster.ViewModel(UIImage: response.UIImage))
   }
 }

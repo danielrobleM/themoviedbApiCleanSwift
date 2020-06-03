@@ -10,11 +10,19 @@ import UIKit
 
 protocol ShowMovieDisplayLogic: class {
   func displayMovie(viewModel: ShowMovie.GetMovie.ViewModel)
+  func displayPoster(viewModel: ShowMovie.GetPoster.ViewModel)
 }
 
 class ShowMovieViewController: UIViewController, ShowMovieDisplayLogic {
   var interactor: ShowMovieBusinessLogic?
   var router: (NSObjectProtocol & ShowMovieRoutingLogic & ShowMovieDataPassing)?
+
+  let posterImageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.contentMode = .scaleAspectFit
+    return imageView
+  }()
 
   // MARK: Object lifecycle
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -41,16 +49,38 @@ class ShowMovieViewController: UIViewController, ShowMovieDisplayLogic {
     router.dataStore = interactor
   }
 
+   // MARK: UI Setup
+  func setupUI() {
+    setupPosterImageView()
+  }
+
+  func setupPosterImageView() {
+    view.addSubview(posterImageView)
+    posterImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+    posterImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+    posterImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+    posterImageView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+  }
+
   // MARK: View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    let request = ShowMovie.GetMovie.Request()
-    interactor?.getMovie(request: request)
     view.backgroundColor = UIColor.systemBackground
+    interactor?.getMovie(request: ShowMovie.GetMovie.Request())
+    interactor?.getPoster(request: ShowMovie.GetPoster.Request())
+    setupUI()
   }
 
   // MARK: ShowMovieDisplayLogic
   func displayMovie(viewModel: ShowMovie.GetMovie.ViewModel) {
+    DispatchQueue.main.async { [weak self ] in
+      self?.title = viewModel.title
+    }
+  }
 
+  func displayPoster(viewModel: ShowMovie.GetPoster.ViewModel) {
+    DispatchQueue.main.async { [weak self ] in
+      self?.posterImageView.image = viewModel.UIImage
+    }
   }
 }
