@@ -24,15 +24,37 @@ class ShowMovieWorkerTest: XCTestCase {
   }
 
   class MovieApiSpy: MovieStoreProtocol {
-    var fetchedPosertCalled = true
+    var fetchedPosterCalled = true
     func fetchPoster(urlString: String, completionHandler: @escaping (Result<UIImage, MovieDbApiError>) -> Void) {
-      fetchedPosertCalled = true
-      completionHandler(.success(UIImage(named: "")!))
+      fetchedPosterCalled = true
+      completionHandler(.success(UIImage(named: "uncleBobCheck")!))
     }
   }
 
-  func testShouldShouldReturnUIImage() {
-    
+  func testFetchedPoserShouldReturnUIImage() {
+     // Given
+    let store = MovieApiSpy()
+    let expect = expectation(description: "Wait for fetched a poster Imager")
+    var expectedResponse: UIImage?
+
+    sut.movieStore = store
+
+    // When
+    sut.fetchPoster(urlString: "") { (response) in
+      switch response{
+        case .success(let image):
+        expectedResponse = image
+        expect.fulfill()
+        case .failure(_):
+        expectedResponse = nil
+        expect.fulfill()
+      }
+    }
+    waitForExpectations(timeout: 20, handler: nil)
+
+    //Then
+    XCTAssert(store.fetchedPosterCalled, "FetchMovies() should ask MoviesWorker to fetch Moviews")
+    XCTAssertNotNil(expectedResponse)
   }
 }
 
