@@ -32,7 +32,10 @@ class ApiConfiguration: ApiConfigurationProtocol {
       }
 
       do {
-        let response = try  JSONDecoder().decode(ConfigModel.self, from: data)
+        let configModel = try  JSONDecoder().decode(ConfigModel.self, from: data)
+        //Using UserDefaults to simplify implementation, i will use some database in prod.
+        UserDefaults.standard.set(configModel.response.baseUrl, forKey: ApiConfigurationKey.baseUrl)
+        UserDefaults.standard.set(configModel.response.posterSize[5], forKey: ApiConfigurationKey.posterSize)
         completionHandler(.success)
        } catch let jsonError {
         print(jsonError.localizedDescription)
@@ -42,8 +45,4 @@ class ApiConfiguration: ApiConfigurationProtocol {
     }
     task.resume()
   }
-}
-
-struct ConfigModel: Codable {
-
 }

@@ -41,7 +41,7 @@ struct MovieModel: Codable {
   }
 }
 
-class ListMovie: NSObject, Codable {
+struct ListMovie: Codable {
   var page: Int
   var results: [MovieModel]
 
@@ -50,7 +50,7 @@ class ListMovie: NSObject, Codable {
     case page = "page"
   }
 
-  required init(from decoder: Decoder) throws {
+  init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: ResponseMovieDBKey.self)
     results = try container.decode([MovieModel].self, forKey: .results)
     page = try container.decode(Int.self, forKey: .page)

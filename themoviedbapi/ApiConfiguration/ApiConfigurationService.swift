@@ -50,6 +50,7 @@ class ApiConfigurationService {
 
   /// Load API Configuration from local struct. The base_url, size and file_path.
   func loadDefaultConfiguration() {
+    guard UserDefaults.standard.contains(key: ApiConfigurationKey.baseUrl) != true else { return }
     //Using UserDefaults to simplify implementation, i will use some database in prod.
     UserDefaults.standard.set(ApiConfigurationDefault.baseUrl, forKey: ApiConfigurationKey.baseUrl)
     UserDefaults.standard.set(ApiConfigurationDefault.posterSize, forKey: ApiConfigurationKey.posterSize)
